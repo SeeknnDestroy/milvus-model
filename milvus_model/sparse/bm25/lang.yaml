@@ -135,3 +135,17 @@ kr:
   filters:
     - class: StopwordFilter
       params: {}
+tr:
+  tokenizer:
+    class: StandardTokenizer
+    params: {}
+  filters:
+    - class: LowercaseFilter
+      params: {}
+    - class: PunctuationFilter
+      params: {}
+    - class: StopwordFilter
+      params:
+        language: 'turkish'
+    - class: SimpleTurkishStemmer
+      params: {}

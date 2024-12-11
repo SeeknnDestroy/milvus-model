@@ -45,9 +45,10 @@ class BM25EmbeddingFunction(BaseEmbeddingFunction):
         b: float = 0.75,
         epsilon: float = 0.25,
         num_workers: int = 1,
+        language: str = "en",
     ):
         if analyzer is None:
-            analyzer = build_default_analyzer(language="en")
+            analyzer = build_default_analyzer(language=language)
         self.analyzer = analyzer
         self.corpus_size = 0
         self.avgdl = 0

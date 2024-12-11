@@ -164,6 +164,31 @@ class KonlpyTokenizer(Tokenizer):
 
         return Kkma().nouns(text)
 
+@register_class("SimpleTurkishStemmer")
+class SimpleTurkishStemmer(TextFilter):
+    def __init__(self):
+        self.suffixes = [
+            # List of common Turkish suffixes
+            'lar', 'ler', 'ci', 'cu', 'cü', 'cı', 'lı', 'li', 'lu', 'lü',
+            'dan', 'den', 'la', 'le', 'in', 'un', 'ün', 'ım', 'im', 'um', 'üm',
+            'sı', 'si', 'su', 'sü', 'tı', 'ti', 'tu', 'tü', 'nı', 'ni', 'nu', 'nü',
+            'mı', 'mi', 'mu', 'mü', 'dır', 'dir', 'dur', 'dür', 'tır', 'tir', 'tur', 'tür',
+            'nın', 'nin', 'nun', 'nün', 'nın', 'nin', 'nun', 'nün',
+            'ımız', 'imiz', 'umuz', 'ümüz', 'ınız', 'iniz', 'unuz', 'ünüz',
+            'ları', 'leri', 'ları', 'leri', 'lar', 'ler', 'ları', 'leri'
+        ]
+
+    def apply(self, tokens: List[str]):
+        stemmed_tokens = []
+        for token in tokens:
+            stem = token
+            for suffix in self.suffixes:
+                if token.endswith(suffix) and len(token) > len(suffix):
+                    stem = token[:-len(suffix)]
+                    break
+            stemmed_tokens.append(stem)
+        return stemmed_tokens
+
 
 class Analyzer:
     def __init__(
